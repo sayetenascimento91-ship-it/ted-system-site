@@ -1,48 +1,72 @@
-<html lang="pt-BR">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Fale Conosco | TED System</title>
-	</head>
-	<body>
-		<header>
-			<strong>TED System</strong>
-			<nav>
-				<ul>
-					<li><a href="/">Início</a></li>
-					<li><a href="/sobre">Sobre</a></li>
-					<li><a href="/equipe">Equipe</a></li>
-					<li><a href="/contato">Contato</a></li>
-				</ul>
-			</nav>
-		</header>
+---
+import LayoutBase from '../layouts/LayoutBase.astro';
+import Cartao from '../components/Cartao.astro';
+import { empresa } from '../data/empresa.js';
+---
 
-		<main>
-			<section>
+<LayoutBase 
+	titulo="Fale Conosco" 
+	descricao={`Entre em contato com a ${empresa.nome}.`}
+>
+	<section class="secao">
+		<div class="container">
+			<div class="cabecalho-secao">
 				<h1>Fale Conosco</h1>
-				<p>Deseja construir uma solução de software sob medida para o seu negócio? Entre em contato com a TED System!</p>
-			</section>
+				<p>Deseja construir uma solução de software sob medida para o seu negócio? Entre em contato com a {empresa.nome}!</p>
+			</div>
 
-			<section>
-				<h2>Nossa Sede</h2>
-				<address>
-					Rua Coronel Simplício, 250, Sala 12<br />
-					Centro<br />
-					Piripiri, PI<br />
-					CEP: 64260-000
-				</address>
-			</section>
+			<div class="grid-contato">
+				<Cartao>
+					<h2>Nossa Sede</h2>
+					<address>
+						{empresa.contato.endereco.logradouro}, {empresa.contato.endereco.complemento}<br/>
+						{empresa.contato.endereco.bairro}<br/>
+						{empresa.contato.endereco.cidadeEstado}<br/>
+						CEP: {empresa.contato.endereco.cep}
+					</address>
+				</Cartao>
 
-			<section>
-				<h2>Canais Digitais</h2>
-				<p><strong>E-mail:</strong> <a href="mailto:contato@tedsystem.com.br">contato@tedsystem.com.br</a></p>
-				<p><strong>Telefone:</strong> (86) 3276-0042</p>
-			</section>
-		</main>
+				<Cartao>
+					<h2>Canais Digitais</h2>
+					<p><strong>E-mail:</strong> <a href={`mailto:${empresa.contato.email}`}>{empresa.contato.email}</a></p>
+					<p><strong>Telefone:</strong> {empresa.contato.telefone}</p>
+				</Cartao>
+			</div>
+		</div>
+	</section>
+</LayoutBase>
 
-		<footer>
-			<p>&copy; 2026 TED System. Todos os direitos reservados.</p>
-		</footer>
-	</body>
-</html>
+<style>
+	.cabecalho-secao {
+		margin-bottom: 3rem;
+	}
+
+	.cabecalho-secao p {
+		font-size: 1.125rem;
+		color: var(--cor-texto-secundario);
+	}
+
+	.grid-contato {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+	}
+
+	.grid-contato h2 {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+		color: var(--cor-secundaria);
+	}
+
+	address {
+		font-style: normal;
+	}
+
+	.grid-contato p {
+		margin-bottom: 0.5rem;
+	}
+
+	.grid-contato p:last-child {
+		margin-bottom: 0;
+	}
+</style>
